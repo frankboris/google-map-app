@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import './App.scss';
+import {Sidebar} from "./components/Sidebar";
+import {MapComp} from "./components/MapComp";
+import {DistanceMatrixComp} from "./components/Maps/DistanceMatrixComp";
+import {DrawRoutes} from "./components/Maps/DrawRoutes";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App({form, actions}) {
+    const {origins, destinations, travelMode} = form;
+    const [distanceMetrix, setDistanceMetrix] = useState(null);
+
+    const updateDistanceMatrix = (result) => {
+        setDistanceMetrix(result);
+    }
+
+    return (
+        <main className="main">
+            <MapComp>
+                <Sidebar
+                    form={form}
+                    actions={actions}
+                    distanceMetrix={distanceMetrix}
+                />
+                <DistanceMatrixComp
+                    origins={origins}
+                    destinations={destinations}
+                    travelMode={travelMode}
+                    callback={updateDistanceMatrix}
+                />
+                <DrawRoutes
+                    origins={origins}
+                    destinations={destinations}
+                    travelMode={travelMode}
+                />
+            </MapComp>
+        </main>
+    )
 }
 
 export default App;
