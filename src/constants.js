@@ -1,4 +1,4 @@
-export const API_KEY = 'AIzaSyBWtrpvmMeGea16zpY7eu4WLeizXU_63f4';
+export const API_KEY = 'API_KEY';
 export const LIBRAIRIES = ['drawing', 'places', 'visualization'];
 
 export const DRIVING = 'DRIVING';

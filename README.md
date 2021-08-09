@@ -1,7 +1,7 @@
 ![alt text](https://github.com/frankboris/google-map-app/blob/master/screenshots/screenshot-1.png?raw=true)
 ![alt text](https://github.com/frankboris/google-map-app/blob/master/screenshots/screenshot-2.png?raw=true)
 
-# Getting Started with Create React App
+# Getting Started with Create React App and Google map API
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
