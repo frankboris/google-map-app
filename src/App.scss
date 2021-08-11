@@ -86,6 +86,7 @@ $error: #dc5757;
       text-overflow: ellipsis;
       border: 1px solid transparent;
       border-radius: 3px;
+      width: 100%;
     }
 
     span {
@@ -144,22 +145,31 @@ $error: #dc5757;
 }
 
 .distance-matrix-results {
-  .distance-matrix-result-item {
-    padding: 0 20px;
-    width: 100%;
-    margin-bottom: 15px;
+  padding: 0 20px;
+  margin-top: 15px;
 
-    td {
-      padding: 8px 8px;
-      outline: 1px solid #DDDDDD;
+  .distance-matrix-result-item {
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 3px 0 #dcdcdc;
+    margin-bottom: 20px;
+
+    .name {
+      margin-bottom: 10px;
     }
 
-    .label {
-      width: 90px;
+    .address {
+      margin-bottom: 10px;
+      font-weight: 500;
     }
 
     .value {
       font-weight: 500;
+    }
+
+    &:first-child {
+      background-color: #ffb300;
+      color: #fdfdfd;
     }
   }
 }
@@ -180,7 +190,24 @@ $error: #dc5757;
 
 
 .addresses {
-  padding: 20px;
+
+  .origins {
+    padding: 20px 20px 5px;
+  }
+
+  .destinations {
+    border-top: 1px solid #DDDDDD;
+
+    .destination-item {
+      padding: 10px 20px 0;
+      border-bottom: 1px solid #DDDDDD;
+    }
+  }
+
+  .footer {
+    padding: 20px;
+    text-align: right;
+  }
 }
 
 ::-webkit-scrollbar {

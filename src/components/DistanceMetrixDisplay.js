@@ -1,18 +1,26 @@
 import React from 'react'
 import {DistanceItem} from "./DistanceItem";
 
-const DistanceMetrixDisplay = React.memo(({distanceMetrix}) => {
-    const {originAddresses, destinationAddresses, rows} = distanceMetrix || {};
+const DistanceMetrixDisplay = React.memo(({origins, destinations, distanceMetrix}) => {
+    const {rows} = distanceMetrix || {};
 
-    return (distanceMetrix &&
+    const compareDestinationByDistance = (dest1, dest2) => {
+        if (dest1.distance?.value < dest2.distance?.value) return -1;
+        if (dest1.distance?.value > dest2.distance?.value) return 1;
+        return 0
+    }
+
+    const elements = rows && rows[0] ? rows[0].elements.sort(compareDestinationByDistance) : [];
+
+    return (distanceMetrix && elements.length > 0 &&
         <div className="distance-matrix-results">
-            {rows[0].elements.map((result, index) =>
-                <DistanceItem
-                    origin={originAddresses[0]}
-                    destination={destinationAddresses[index]}
+            {elements.map((result, index) =>
+                destinations[index] ? <DistanceItem
+                    origin={origins[0]}
+                    destination={destinations[index]}
                     result={result}
                     key={index}
-                />
+                /> : <div key={index}/>
             )}
         </div>
     )

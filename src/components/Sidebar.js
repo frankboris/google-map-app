@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import {AddressInput} from "./AddressInput";
 import {TravelModeInput} from "./TravelModeInput";
 import {DRIVING, TRANSIT, WALKING} from "../constants";
 import {DistanceMetrixDisplay} from "./DistanceMetrixDisplay";
+import {DestinationItem} from "./DestinationItem";
+import {OriginItem} from "./OriginItem";
 
 const travelModes = [
     {
@@ -33,40 +34,49 @@ const Sidebar = React.memo(({form, actions, distanceMetrix}) => {
             <div className="scroller">
                 <h1 className="app-name">Temps et Distance</h1>
                 <div className="addresses">
-                    <TravelModeInput
-                        value={travelMode}
-                        choices={travelModes}
-                        onTravelModeChanged={setTravelMode}
-                    />
-                    {origins.map((origin, index) => (
-                        <AddressInput
-                            placeholder="Adresse de départ. Ex : Paris, France"
-                            onAddressChanged={updateOrigin}
-                            index={index}
-                            onRemoveInput={removeOrigin}
-                            closable={origins.length > 1}
-                            key={index}
+                    <div className="origins">
+                        <TravelModeInput
+                            value={travelMode}
+                            choices={travelModes}
+                            onTravelModeChanged={setTravelMode}
                         />
-                    ))}
-                    {destinations.map((destination, index) => (
-                        <AddressInput
-                            placeholder="Adresse d'arrivée. Ex : Lyon, France"
-                            onAddressChanged={updateDestination}
-                            index={index}
-                            onRemoveInput={removeDestination}
-                            closable={destinations.length > 1}
-                            key={index}
-                        />
-                    ))}
-                    <div>
+                        <div style={{fontWeight: 500, marginBottom: 5}}>Adresse de départ</div>
+                        {origins.map((origin, index) => (
+                            <OriginItem
+                                placeholder="Ex : Paris, France"
+                                onOriginChanged={updateOrigin}
+                                index={index}
+                                onRemoveItem={removeOrigin}
+                                closable={origins.length > 1}
+                                key={index}
+                            />
+                        ))}
+                    </div>
+                    <div className="destinations">
+                        {destinations.map((destination, index) => (
+                            <DestinationItem
+                                placeholder="Ex : Lyon, France"
+                                value={destination}
+                                onDestinationChanged={updateDestination}
+                                index={index}
+                                label="Adresse d'arrivée"
+                                idPrefix="destination"
+                                onRemoveItem={removeDestination}
+                                closable={destinations.length > 1}
+                                key={index}
+                            />
+                        ))}
+                    </div>
+                    <div className="footer">
                         <button className="btn-add" onClick={() => updateDestination({})}>Ajouter une destination
                         </button>
                     </div>
                 </div>
                 <DistanceMetrixDisplay
+                    origins={origins}
+                    destinations={destinations}
                     distanceMetrix={distanceMetrix}
                 />
-                <div style={{height: 1000}}/>
             </div>
             <div className="sidebar-close" onClick={toggleSidebar}>
                 <div className="sidebar-toggle">

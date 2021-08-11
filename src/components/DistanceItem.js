@@ -3,31 +3,27 @@ import React from 'react'
 const DistanceItem = React.memo(({origin, destination, result}) => {
     const {status, duration, distance} = result;
 
+    const firstName = destination.firstName || ''
+    const lastName = destination.lastName || ''
+    const name = `${firstName} ${lastName}`.trim();
+
     return (
-        <table className="distance-matrix-result-item">
-            <tbody>
-            <tr>
-                <td className="label">De :</td>
-                <td className="value">
-                    <div className="value">{origin}</div>
-                </td>
-            </tr>
-            <tr>
-                <td className="label">A :</td>
-                <td className="value">
-                    <div className="value">{destination}</div>
-                </td>
-            </tr>
-            <tr>
-                <td className="label">Durée :</td>
-                <td className="value">{status === 'OK' ? duration.text : <div className="error">Trajet impossible</div>}</td>
-            </tr>
-            <tr>
-                <td className="label">Distance :</td>
-                <td className="value">{status === 'OK' ? distance.text : <div className="error">Trajet impossible</div>}</td>
-            </tr>
-            </tbody>
-        </table>
+        <div className="distance-matrix-result-item">
+            <div className="name">{name}</div>
+            <div className="address">{destination.name}</div>
+            <div>
+                <span className="label">Durée : </span>
+                <span className="value">
+                    {status === 'OK' ? duration.text : <span className="error">Trajet impossible</span>}
+                </span>
+            </div>
+            <div>
+                <span className="label">Distance : </span>
+                <span className="value">
+                    {status === 'OK' ? distance.text : <span className="error">Trajet impossible</span>}
+                </span>
+            </div>
+        </div>
     )
 })
 

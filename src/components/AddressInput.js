@@ -2,19 +2,15 @@ import React, {useState} from "react";
 import {Autocomplete} from "@react-google-maps/api";
 import {AddressField} from "./AddressField";
 
-const AddressInput = React.memo(({index, closable, placeholder, onAddressChanged, onRemoveInput}) => {
+const AddressInput = React.memo(({closable, placeholder, onAddressChanged, onRemoveInput}) => {
     const [autocomplete, setAutocomplte] = useState(null);
 
     const onPlaceChanged = () => {
         if (autocomplete !== null) {
             const place = autocomplete.getPlace();
             const location = place.geometry.location;
-            onAddressChanged({location}, index);
+            onAddressChanged(location, place.formatted_address);
         }
-    }
-
-    const clearInput = () => {
-        onRemoveInput(index);
     }
 
     return (
@@ -26,7 +22,7 @@ const AddressInput = React.memo(({index, closable, placeholder, onAddressChanged
         >
             <AddressField
                 placeholder={placeholder}
-                onRemoveField={clearInput}
+                onRemoveField={onRemoveInput}
                 closable={closable}
             />
         </Autocomplete>
