@@ -9,10 +9,6 @@ function App({form, actions}) {
     const {origins, destinations, travelMode} = form;
     const [distanceMetrix, setDistanceMetrix] = useState(null);
 
-    const updateDistanceMatrix = (result) => {
-        setDistanceMetrix(result);
-    }
-
     return (
         <main className="main">
             <MapComp>
@@ -25,7 +21,7 @@ function App({form, actions}) {
                     origins={origins}
                     destinations={destinations}
                     travelMode={travelMode}
-                    callback={updateDistanceMatrix}
+                    callback={setDistanceMetrix}
                 />
                 <DrawRoutes
                     origins={origins}

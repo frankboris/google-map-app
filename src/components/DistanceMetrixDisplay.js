@@ -10,17 +10,23 @@ const DistanceMetrixDisplay = React.memo(({origins, destinations, distanceMetrix
         return 0
     }
 
-    const elements = rows && rows[0] ? rows[0].elements.sort(compareDestinationByDistance) : [];
+    const results = rows && rows[0] ? rows[0].elements.map((item, index) => ({
+        ...item,
+        origin: origins[0],
+        destination: destinations[index]
+    })) : [];
 
-    return (distanceMetrix && elements.length > 0 &&
+    const orderedList = results.sort(compareDestinationByDistance);
+
+    return (distanceMetrix && orderedList.length > 0 &&
         <div className="distance-matrix-results">
-            {elements.map((result, index) =>
-                destinations[index] ? <DistanceItem
-                    origin={origins[0]}
-                    destination={destinations[index]}
-                    result={result}
-                    key={index}
-                /> : <div key={index}/>
+            {orderedList.map((result, index) =>
+                destinations[index] ? (
+                    <DistanceItem
+                        result={result}
+                        key={index}
+                    />
+                ) : <div key={index}/>
             )}
         </div>
     )

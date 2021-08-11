@@ -1,20 +1,28 @@
-import React, {useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {DirectionsRenderer, DirectionsService} from "@react-google-maps/api";
 
-const polylineOptions = {
-    strokeColor: '#1565c0',
-    strokeOpacity: 1.0,
-    strokeWeight: 5
+const options = {
+    polylineOptions: {
+        strokeColor: '#1565c0',
+        strokeOpacity: 1.0,
+        strokeWeight: 5
+    }
 };
 
 const DrawRoute = React.memo(({origin, destination, travelMode}) => {
-    const [direction, setDirection] = useState('');
+    const [directions, setDirections] = useState();
+    const count = useRef(0);
 
-    const directionServiceCallback = (response) => {
-        if (response && response.status === 'OK') {
-            setDirection(response);
+    const directionServiceCallback = (result, status) => {
+        if (status === "OK" && count.current === 0) {
+            count.current += 1;
+            setDirections(result);
         }
     }
+
+    useEffect(() => {
+        count.current = 0;
+    }, [origin.location.lat, origin.location.lng, destination.location.lat, destination.location.lng, travelMode]);
 
     return (
         <>
@@ -26,13 +34,9 @@ const DrawRoute = React.memo(({origin, destination, travelMode}) => {
                 }}
                 callback={directionServiceCallback}
             />
-            {direction !== '' &&
-            <DirectionsRenderer
-                options={{
-                    directions: direction,
-                    polylineOptions: polylineOptions
-                }}
-            />}
+            {directions && (
+                <DirectionsRenderer directions={directions} options={options}/>
+            )}
         </>
     )
 });

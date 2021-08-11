@@ -1,7 +1,7 @@
 import React from 'react'
 
-const DistanceItem = React.memo(({origin, destination, result}) => {
-    const {status, duration, distance} = result;
+const DistanceItem = React.memo(({result}) => {
+    const {status, destination, duration, distance} = result;
 
     const firstName = destination.firstName || ''
     const lastName = destination.lastName || ''

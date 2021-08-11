@@ -4,6 +4,7 @@ import {DRIVING, TRANSIT, WALKING} from "../constants";
 import {DistanceMetrixDisplay} from "./DistanceMetrixDisplay";
 import {DestinationItem} from "./DestinationItem";
 import {OriginItem} from "./OriginItem";
+import nextId from "react-id-generator";
 
 const travelModes = [
     {
@@ -48,7 +49,7 @@ const Sidebar = React.memo(({form, actions, distanceMetrix}) => {
                                 index={index}
                                 onRemoveItem={removeOrigin}
                                 closable={origins.length > 1}
-                                key={index}
+                                key={origin.id}
                             />
                         ))}
                     </div>
@@ -63,12 +64,12 @@ const Sidebar = React.memo(({form, actions, distanceMetrix}) => {
                                 idPrefix="destination"
                                 onRemoveItem={removeDestination}
                                 closable={destinations.length > 1}
-                                key={index}
+                                key={destination.id}
                             />
                         ))}
                     </div>
                     <div className="footer">
-                        <button className="btn-add" onClick={() => updateDestination({})}>Ajouter une destination
+                        <button className="btn-add" onClick={() => updateDestination({id: nextId()})}>Ajouter une destination
                         </button>
                     </div>
                 </div>

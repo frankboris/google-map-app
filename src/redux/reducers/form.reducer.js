@@ -2,8 +2,8 @@ import * as types from "../types/form.types";
 import {DRIVING} from "../../constants";
 
 const initialState = {
-    origins: [{}],
-    destinations: [{}],
+    origins: [{id: 'id0'}],
+    destinations: [{id: 'id0'}],
     travelMode: DRIVING,
 };
 
@@ -14,7 +14,7 @@ const formReducer = (state = initialState, action) => {
             if (typeof action.index !== 'undefined') {
                 if (action.index < state.origins.length) {
                     newItems = [...state.origins];
-                    newItems.splice(action.index, 1, action.payload);
+                    newItems[action.index] = {...newItems[action.index], ...action.payload}
                     return {...state, origins: newItems};
                 }
             } else {
@@ -25,7 +25,7 @@ const formReducer = (state = initialState, action) => {
             if (typeof action.index !== 'undefined') {
                 if (action.index < state.destinations.length) {
                     newItems = [...state.destinations];
-                    newItems.splice(action.index, 1, action.payload);
+                    newItems[action.index] = {...newItems[action.index], ...action.payload}
                     return {...state, destinations: newItems};
                 }
             } else {

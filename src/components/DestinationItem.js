@@ -2,7 +2,7 @@ import React from "react";
 import {AddressInput} from "./AddressInput";
 import {AddressField} from "./AddressField";
 
-const DestinationItem = React.memo(({index, value, label, idPrefix, placeholder, closable, onRemoveItem, onDestinationChanged}) => {
+const DestinationItem = ({index, value, label, idPrefix, placeholder, closable, onRemoveItem, onDestinationChanged}) => {
 
     const onRemove = () => onRemoveItem(index);
 
@@ -45,7 +45,7 @@ const DestinationItem = React.memo(({index, value, label, idPrefix, placeholder,
             />
         </div>
     )
-});
+};
 
 const closeButtonStyle = {
     fontSize: '2rem',
