@@ -3,11 +3,11 @@ import React from 'react'
 const DistanceItem = React.memo(({result}) => {
     const {status, destination, duration, distance} = result;
 
-    const firstName = destination.firstName || ''
-    const lastName = destination.lastName || ''
+    const firstName = destination?.firstName || '';
+    const lastName = destination?.lastName || '';
     const name = `${firstName} ${lastName}`.trim();
 
-    return (
+    return destination ? (
         <div className="distance-matrix-result-item">
             <div className="name">{name}</div>
             <div className="address">{destination.name}</div>
@@ -24,7 +24,7 @@ const DistanceItem = React.memo(({result}) => {
                 </span>
             </div>
         </div>
-    )
+    ) : <div/>
 })
 
 export {DistanceItem}
